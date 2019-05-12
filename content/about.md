@@ -1,6 +1,6 @@
 ---
 date: "2019-05-11T23:07:51-07:00"
-title: Sou Apenas...
+title: Sobre Mim
 ---
 
 Eu sou apenas um rapaz latino-americano
