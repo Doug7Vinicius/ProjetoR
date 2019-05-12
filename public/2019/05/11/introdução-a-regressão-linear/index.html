@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.55.5" />
+
+
+<title>Introdução a Regressão Linear - Regressao Linear</title>
+<meta property="og:title" content="Introdução a Regressão Linear - Regressao Linear">
+
+
+  <link href='/rstudio-icon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/image2-7.jpg"
+         width="100"
+         height="100"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">Sobre</a></li>
+    
+    <li><a href="https://github.com/Doug7Vinicius">GitHub</a></li>
+    
+    <li><a href="https://www.instagram.com/jossivanaaa/">Instagram</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">7 min read</span>
+    
+
+    <h1 class="article-title">Introdução a Regressão Linear</h1>
+
+    
+    <span class="article-date">2019-05-11</span>
+    
+
+    <div class="article-content">
+      
+
+
+<div id="o-modelo-de-regressao-linear-simples" class="section level3">
+<h3>O Modelo de Regressão Linear Simples</h3>
+<p>A Regressão Linear é uma das técnicas de modelagem preditiva mais utilizadas. O objetivo da regressão linear é encontrar uma equação matemática para uma variável de resposta contínua <strong>Y</strong> como uma função de uma ou mais variáveis <strong>X</strong> que descreve a relação mais simples entre duas variáveis - uma linha reta. Para que você possa usar esse modelo de regressão para prever o Y quando apenas o X é conhecido.</p>
+<p>Seja <strong>Y</strong> uma variável aletória de interesse, muitas vezes denominada variável resposta, e seja X uma variável aleatória que denominaremos auxiliar ou regressora.</p>
+<p>Coletivamente <span class="math inline">\(\beta_{0}\)</span> e <span class="math inline">\(\beta_{1}\)</span> são denotados os coeficientes da reta, ϵ, a variável erro, <span class="math inline">\(\sigma^2\)</span>, a variância erro, e <strong><em>x</em></strong>, um valor específico da variável <strong>X</strong>, neste caso pode ser generalizada da seguinte forma o modelo de regressão linear simples(MRLS):</p>
+<span class="math display">\[
+Y = \beta_{0} + \beta_{1}x + \epsilon 
+\]</span>
+<span class="math display">\[\beta_{0}, \beta_{1}, x\]</span>
+<span class="math display">\[E[\epsilon] = 0\]</span>
+<span class="math display">\[Var[\epsilon] = \sigma^2\]</span>
+Supomos que o modelo de probabilidade do erro é o modelo normal. Neste caso, podemos sumarizar o MRLS(normal) da seguinte forma.
+<span class="math display">\[Y = \beta_{0} + \beta_{1}x + \epsilon\]</span>
+<span class="math display">\[\beta_{0}, \beta_{1}, x\]</span>
+<span class="math display">\[\epsilon \sim N(0;\sigma^2)\]</span>
+Então, a distribuição de probabilidade de <em>Y</em>, corresponde:
+<span class="math display">\[Y \sim N(\beta_{0} + \beta_{1} x ; \sigma^2).\]</span>
+<p>
+<p><em>PROVA:</em>
+<span class="math display">\[E[Y|x] = E[\beta_{0} + \beta_{1} + \epsilon]\]</span></p>
+<div class="figure"><span id="fig:pressure"></span>
+<img src="/post/regression/linear-regression.png" alt="Equação da Regressão." width="70%" />
+<p class="caption">
+Figure 1: Equação da Regressão.
+</p>
+</div>
+</div>
+<div id="ajuste-de-reta-por-quadrados-minimos" class="section level3">
+<h3>Ajuste de Reta por Quadrados Mínimos</h3>
+<p>No ponto de vista estritamente matemático, examinamos o método de quadrados mínimos para solucionar o problema da escolha de uma reta que represente um conjunto de n pontos fixos.</p>
+</div>
+<div id="exemplo-de-problema" class="section level3">
+<h3>Exemplo de Problema</h3>
+<p>Para esta análise, usaremos o carsconjunto de dados que vem com R por padrão.
+cars é um conjunto de dados interno padrão, que torna conveniente mostrar a regressão linear de maneira simples e fácil de entender. Você pode acessar este conjunto de dados digitando carsem seu console R.</p>
+<p>Você descobrirá que consiste em 50 observações (linhas) e 2 variáveis (colunas) - diste speed. Vamos imprimir as primeiras seis observações aqui.</p>
+<pre class="r"><code>head(cars)</code></pre>
+<pre><code>##   speed dist
+## 1     4    2
+## 2     4   10
+## 3     7    4
+## 4     7   22
+## 5     8   16
+## 6     9   10</code></pre>
+<p>O objetivo aqui é estabelecer uma equação matemática em distfunção de speed, assim você pode usá-lo para prever distquando apenas speedo carro é conhecido.</p>
+<p>Portanto, é desejável construir um modelo de regressão linear com a variável de resposta como diste o preditor como speed.</p>
+<p>Antes de começarmos a construir o modelo de regressão, é uma boa prática analisar e entender as variáveis.</p>
+<p>A análise gráfica e o estudo de correlação abaixo ajudarão com isso.</p>
+</div>
+<div id="analise-grafica" class="section level3">
+<h3>Análise Gráfica</h3>
+<p>O objetivo deste exercício é criar um modelo de regressão simples que você possa usar para prever Distance ( dist).</p>
+<p>Isso é possível estabelecendo uma fórmula matemática entre Distância ( dist) e Velocidade ( speed).</p>
+<p>Mas antes de entrar na sintaxe, vamos tentar entender essas variáveis graficamente.</p>
+<p>Normalmente, para cada um dos preditores, os seguintes gráficos ajudam a visualizar os padrões:</p>
+<p><strong>Gráfico de dispersão:</strong> visualize a relação linear entre o preditor e a resposta.</p>
+<p><strong>Box plot:</strong> Para detectar quaisquer observações atípicas na variável. Ter outliers em seu preditor pode afetar drasticamente as previsões, pois elas podem afetar a direção / inclinação da linha de melhor ajuste.</p>
+<p><strong>Gráfico de densidade:</strong> para ver a distribuição da variável de previsão. Idealmente, é preferível uma distribuição próxima da normal (uma curva em forma de sino), sem ser inclinada para a esquerda ou para a direita.</p>
+<p>Vamos ver como fazer cada um deles.</p>
+</div>
+<div id="usando-o-grafico-de-dispersao-para-visualizar-o-relacionamento" class="section level3">
+<h3>Usando o Gráfico de Dispersão para Visualizar o Relacionamento</h3>
+<p>Gráficos de dispersão podem ajudar a visualizar relacionamentos lineares entre as variáveis de resposta e de previsão.</p>
+<p>Idealmente, se você tem muitas variáveis preditoras, um gráfico de dispersão é desenhado para cada uma delas em relação à resposta, junto com a linha de melhor ajuste, como visto abaixo.</p>
+<pre class="r"><code>scatter.smooth(x=cars$speed, y=cars$dist, main=&quot;Dist ~ Speed&quot;)  # scatterplot</code></pre>
+<p><img src="/post/Regression_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+O gráfico de dispersão junto com a linha de suavização acima sugere uma relação linear e positiva entre o ’ dist’ e ’ speed’.</p>
+<p>Isto é uma coisa boa.</p>
+<p>Porque, uma das hipóteses subjacentes da regressão linear é, a relação entre as variáveis de resposta e preditor é linear e aditiva.</p>
+</div>
+<div id="usando-boxplot-para-verificar-outliers" class="section level3">
+<h3>Usando BoxPlot para verificar outliers</h3>
+<p>Geralmente, um outlier é qualquer ponto de dados que esteja fora da faixa interquartil de 1,5 * (IQR).</p>
+<p>O IQR é calculado como a distância entre os valores do 25º percentil e 75º percentil para essa variável.</p>
+<pre class="r"><code>par(mfrow=c(1, 2))  # divide graph area in 2 columns
+
+boxplot(cars$speed, main=&quot;Speed&quot;, sub=paste(&quot;Outlier rows: &quot;, boxplot.stats(cars$speed)$out))  # box plot for &#39;speed&#39;
+
+boxplot(cars$dist, main=&quot;Distance&quot;, sub=paste(&quot;Outlier rows: &quot;, boxplot.stats(cars$dist)$out))  # box plot for &#39;distance&#39;</code></pre>
+<p><img src="/post/Regression_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<div id="usando-o-grafico-de-densidade-para-verificar-se-a-variavel-de-resposta-esta-proxima-do-normal." class="section level3">
+<h3>Usando o gráfico de densidade para verificar se a variável de resposta está próxima do normal.</h3>
+<pre class="r"><code>library(e1071)  # for skewness function
+par(mfrow=c(1, 2))  # divide graph area in 2 columns
+
+plot(density(cars$speed), main=&quot;Density Plot: Speed&quot;, ylab=&quot;Frequency&quot;, sub=paste(&quot;Skewness:&quot;, round(e1071::skewness(cars$speed), 2)))  # density plot for &#39;speed&#39;
+
+polygon(density(cars$speed), col=&quot;red&quot;)
+
+plot(density(cars$dist), main=&quot;Density Plot: Distance&quot;, ylab=&quot;Frequency&quot;, sub=paste(&quot;Skewness:&quot;, round(e1071::skewness(cars$dist), 2)))  # density plot for &#39;dist&#39;
+
+polygon(density(cars$dist), col=&quot;red&quot;)</code></pre>
+<p><img src="/post/Regression_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="o-que-e-analise-de-correlacao" class="section level3">
+<h3>O que é Análise de Correlação?</h3>
+<p>A análise de correlação estuda a força da relação entre duas variáveis contínuas. Envolve calcular o coeficiente de correlação entre as duas variáveis.</p>
+<p>Então, o que é correlação? E como isso é útil na regressão linear?</p>
+<p>Correlação é uma medida estatística que mostra o grau de dependência linear entre duas variáveis.</p>
+<p>Para calcular a correlação, as duas variáveis devem ocorrer em pares, assim como o que temos aqui com speede dist.</p>
+<p>Correlação pode levar valores entre -1 a +1.</p>
+<p>Se uma variável aumenta consistentemente com o valor crescente da outra, então elas têm uma forte correlação positiva (valor próximo de +1).</p>
+<p>Da mesma forma, se um diminui consistentemente quando o outro aumenta, eles têm uma forte correlação negativa (valor próximo de -1).</p>
+<p>Um valor mais próximo de 0 sugere uma relação fraca entre as variáveis.</p>
+<p>Uma baixa correlação (-0,2 &lt;x &lt;0,2) provavelmente sugere que grande parte da variação da variável resposta (Y) é inexplicada pelo preditor (X). Nesse caso, você provavelmente deve procurar por melhores variáveis explicativas.</p>
+<p>Se você observar o carsconjunto de dados no console R, para cada instância em que a velocidade aumenta, a distância também aumenta junto com ela.</p>
+<p>Isso significa que existe uma forte relação positiva entre eles. Então, a correlação entre eles será mais próxima de 1.</p>
+<p>No entanto, a correlação não implica causalidade.</p>
+<p>Em outras palavras, se duas variáveis têm alta correlação, isso não significa que uma variável “causa” o valor da outra variável a aumentar.</p>
+<p>Correlação é apenas uma ajuda para entender o relacionamento. Você só pode confiar na lógica e no raciocínio comercial para fazer esse julgamento.</p>
+<p>Então, como calcular a correlação em R?</p>
+<p>Simplesmente use a função com as duas variáveis numéricas como argumentos.cor()</p>
+<pre class="r"><code>cor(cars$speed, cars$dist)  # calculate correlation between speed and distance </code></pre>
+<pre><code>## [1] 0.8068949</code></pre>
+</div>
+<div id="construindo-o-modelo-de-regressao-linear." class="section level3">
+<h3>Construindo o Modelo de Regressão Linear.</h3>
+<p>Agora que você viu o relacionamento linear pictoricamente no gráfico de dispersão e por meio de correlação, vamos tentar construir o modelo de regressão linear.</p>
+<p>A função usada para construir modelos lineares é .lm()</p>
+<p>A função lm () aceita dois argumentos principais:</p>
+<p>Fórmula
+Dados</p>
+<p>Os dados são tipicamente um objeto e a fórmula é um objeto de classe .data.frameformula</p>
+<p>Mas a convenção mais comum é escrever a fórmula diretamente conforme descrito abaixo.</p>
+<pre class="r"><code>linearMod &lt;- lm(dist ~ speed, data=cars)  # build linear regression model on full data
+print(linearMod)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = dist ~ speed, data = cars)
+## 
+## Coefficients:
+## (Intercept)        speed  
+##     -17.579        3.932</code></pre>
+<p>Ao construir o modelo de regressão linear, estabelecemos a relação entre o preditor e a resposta na forma de uma fórmula matemática.</p>
+<p>Isso é Distance ( dist) como uma função para speed.</p>
+<p>Para a saída acima, você pode notar a parte ‘Coefficients’ tendo dois componentes: Intercept: -17.579, speed: 3.932.</p>
+<p>Estes também são chamados de coeficientes beta . Em outras palavras,</p>
+<p><span class="math display">\[ dist = Interceptar + (\beta ∗ velocidade) \]</span></p>
+<p>=&gt; dist = −17,579 + 3,932 ∗ de velocidade</p>
+</div>
+<div id="diagnostico-de-regressao-linear" class="section level3">
+<h3>Diagnóstico de regressão linear</h3>
+<p>Agora o modelo linear é construído e você tem uma fórmula que pode ser usada para prever o distvalor se um correspondente speedfor conhecido.</p>
+<p>Isso é suficiente para realmente usar esse modelo? NÃO!</p>
+<p>Porque, antes de usar um modelo de regressão para fazer previsões, você precisa garantir que seja estatisticamente significativo. Mas como você garante isso?</p>
+<p>Vamos começar imprimindo as estatísticas de resumo para linearMod.</p>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+

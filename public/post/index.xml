@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on A Hugo website</title>
+    <title>Posts on Regressao Linear</title>
     <link>/post/</link>
-    <description>Recent content in Posts on A Hugo website</description>
+    <description>Recent content in Posts on Regressao Linear</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 30 Dec 2016 21:49:57 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 11 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Introdução a Regressão Linear</title>
+      <link>/2019/05/11/introdu%C3%A7%C3%A3o-a-regress%C3%A3o-linear/</link>
+      <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/05/11/introdu%C3%A7%C3%A3o-a-regress%C3%A3o-linear/</guid>
+      <description>O Modelo de Regressão Linear SimplesA Regressão Linear é uma das técnicas de modelagem preditiva mais utilizadas. O objetivo da regressão linear é encontrar uma equação matemática para uma variável de resposta contínua Y como uma função de uma ou mais variáveis X que descreve a relação mais simples entre duas variáveis - uma linha reta. Para que você possa usar esse modelo de regressão para prever o Y quando apenas o X é conhecido.</description>
+    </item>
+    
+    <item>
+      <title>Using Hugo and Blogdown</title>
+      <link>/2017/05/04/using-hugo-and-blogdown/</link>
+      <pubDate>Thu, 04 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/05/04/using-hugo-and-blogdown/</guid>
+      <description>Rest of the sample document: ——–R MarkdownIncluding PlotsRest of the sample document: ——–R MarkdownThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
+When you click the Knit button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.</description>
+    </item>
     
     <item>
       <title>A Plain Markdown Post</title>

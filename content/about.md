@@ -1,6 +1,17 @@
 ---
-date: "2016-05-05T21:48:51-07:00"
-title: About
+date: "2019-05-11T23:07:51-07:00"
+title: Sobre a Mim
 ---
 
-This is a "hello world" example website for the [**blogdown**](https://github.com/rstudio/blogdown) package. The theme was forked from [@jrutheiser/hugo-lithium-theme](https://github.com/jrutheiser/hugo-lithium-theme) and modified by [Yihui Xie](https://github.com/yihui/hugo-lithium).
+Eu sou apenas um rapaz latino-americano
+
+Sem dinheiro no banco sem parentes importantes
+
+E vindo do interior
+
+Mas trago de cabe&ccedil;a uma can&ccedil;&atilde;o do r&aacute;dio
+
+Em que um antigo compositor baiano me dizia
+
+Tudo &eacute; divino tudo &eacute; maravilhoso.
+

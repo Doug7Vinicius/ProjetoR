@@ -1,0 +1,204 @@
+---
+title: "Introdução a Regressão Linear"
+author: "Douglas Vinícius"
+date: "2019-05-11"
+output: 
+    html_document
+
+
+   
+---
+
+### O Modelo de Regressão Linear Simples
+
+A Regressão Linear é uma das técnicas de modelagem preditiva mais utilizadas. O objetivo da regressão linear é encontrar uma equação matemática para uma variável de resposta contínua **Y** como uma função de uma ou mais variáveis **X** que descreve a relação mais simples entre duas variáveis - uma linha reta. Para que você possa usar esse modelo de regressão para prever o Y quando apenas o X é conhecido.
+
+Seja **Y** uma variável aletória de interesse, muitas vezes denominada variável resposta, e seja X uma variável aleatória que denominaremos auxiliar ou regressora. 
+
+Coletivamente \(\beta_{0}\) e \(\beta_{1}\) são denotados os coeficientes da reta, ϵ, a variável erro, \(\sigma^2\), a variância erro, e ***x***, um valor específico da variável **X**, neste caso pode ser generalizada da seguinte forma o modelo de regressão linear simples(MRLS):
+
+$$
+Y = \beta_{0} + \beta_{1}x + \epsilon 
+$$
+$$\beta_{0}, \beta_{1}, x$$
+$$E[\epsilon] = 0$$
+$$Var[\epsilon] = \sigma^2$$
+Supomos que o modelo de probabilidade do erro é o modelo normal. Neste caso, podemos sumarizar o MRLS(normal) da seguinte forma.
+$$Y = \beta_{0} + \beta_{1}x + \epsilon$$
+$$\beta_{0}, \beta_{1}, x$$
+$$\epsilon \sim N(0;\sigma^2)$$
+Então, a distribuição de probabilidade de *Y*, corresponde:
+$$Y \sim N(\beta_{0} + \beta_{1} x ; \sigma^2).$$
+<p>*PROVA:*
+$$E[Y|x] = E[\beta_{0} + \beta_{1} + \epsilon]$$
+
+
+
+```{r pressure, echo=FALSE, fig.cap="Equação da Regressão.", out.width = '70%'}
+knitr::include_graphics("/post/regression/linear-regression.png")
+```
+
+
+
+
+### Ajuste de Reta por Quadrados Mínimos
+
+No ponto de vista estritamente matemático, examinamos o método de quadrados mínimos para solucionar o problema da escolha de uma reta que represente um conjunto de n pontos fixos.
+
+
+### Exemplo de Problema
+
+Para esta análise, usaremos o carsconjunto de dados que vem com R por padrão.
+cars é um conjunto de dados interno padrão, que torna conveniente mostrar a regressão linear de maneira simples e fácil de entender. Você pode acessar este conjunto de dados digitando carsem seu console R.
+
+Você descobrirá que consiste em 50 observações (linhas) e 2 variáveis (colunas) - diste speed. Vamos imprimir as primeiras seis observações aqui.
+```{r}
+head(cars)
+```
+O objetivo aqui é estabelecer uma equação matemática em distfunção de speed, assim você pode usá-lo para prever distquando apenas speedo carro é conhecido.
+
+Portanto, é desejável construir um modelo de regressão linear com a variável de resposta como diste o preditor como speed.
+
+Antes de começarmos a construir o modelo de regressão, é uma boa prática analisar e entender as variáveis.
+
+A análise gráfica e o estudo de correlação abaixo ajudarão com isso.
+
+### Análise Gráfica
+
+O objetivo deste exercício é criar um modelo de regressão simples que você possa usar para prever Distance ( dist).
+
+Isso é possível estabelecendo uma fórmula matemática entre Distância ( dist) e Velocidade ( speed).
+
+Mas antes de entrar na sintaxe, vamos tentar entender essas variáveis graficamente.
+
+Normalmente, para cada um dos preditores, os seguintes gráficos ajudam a visualizar os padrões:
+
+**Gráfico de dispersão:** visualize a relação linear entre o preditor e a resposta.
+
+**Box plot:** Para detectar quaisquer observações atípicas na variável. Ter outliers em seu preditor pode afetar drasticamente as previsões, pois elas podem afetar a direção / inclinação da linha de melhor ajuste.
+
+**Gráfico de densidade:** para ver a distribuição da variável de previsão. Idealmente, é preferível uma distribuição próxima da normal (uma curva em forma de sino), sem ser inclinada para a esquerda ou para a direita.
+
+Vamos ver como fazer cada um deles.
+
+### Usando o Gráfico de Dispersão para Visualizar o Relacionamento
+
+Gráficos de dispersão podem ajudar a visualizar relacionamentos lineares entre as variáveis de resposta e de previsão.
+
+Idealmente, se você tem muitas variáveis preditoras, um gráfico de dispersão é desenhado para cada uma delas em relação à resposta, junto com a linha de melhor ajuste, como visto abaixo.
+```{r}
+scatter.smooth(x=cars$speed, y=cars$dist, main="Dist ~ Speed")  # scatterplot
+```
+O gráfico de dispersão junto com a linha de suavização acima sugere uma relação linear e positiva entre o ' dist' e ' speed'.
+
+Isto é uma coisa boa.
+
+Porque, uma das hipóteses subjacentes da regressão linear é, a relação entre as variáveis de resposta e preditor é linear e aditiva.
+
+### Usando BoxPlot para verificar outliers
+
+Geralmente, um outlier é qualquer ponto de dados que esteja fora da faixa interquartil de 1,5 * (IQR).
+
+O IQR é calculado como a distância entre os valores do 25º percentil e 75º percentil para essa variável.
+
+```{r}
+par(mfrow=c(1, 2))  # divide graph area in 2 columns
+
+boxplot(cars$speed, main="Speed", sub=paste("Outlier rows: ", boxplot.stats(cars$speed)$out))  # box plot for 'speed'
+
+boxplot(cars$dist, main="Distance", sub=paste("Outlier rows: ", boxplot.stats(cars$dist)$out))  # box plot for 'distance'
+```
+
+### Usando o gráfico de densidade para verificar se a variável de resposta está próxima do normal.
+
+```{r}
+library(e1071)  # for skewness function
+par(mfrow=c(1, 2))  # divide graph area in 2 columns
+
+plot(density(cars$speed), main="Density Plot: Speed", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(cars$speed), 2)))  # density plot for 'speed'
+
+polygon(density(cars$speed), col="red")
+
+plot(density(cars$dist), main="Density Plot: Distance", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(cars$dist), 2)))  # density plot for 'dist'
+
+polygon(density(cars$dist), col="red")
+```
+
+
+### O que é Análise de Correlação?
+
+A análise de correlação estuda a força da relação entre duas variáveis contínuas. Envolve calcular o coeficiente de correlação entre as duas variáveis.
+
+Então, o que é correlação? E como isso é útil na regressão linear?
+
+Correlação é uma medida estatística que mostra o grau de dependência linear entre duas variáveis.
+
+Para calcular a correlação, as duas variáveis devem ocorrer em pares, assim como o que temos aqui com speede dist.
+
+Correlação pode levar valores entre -1 a +1.
+
+Se uma variável aumenta consistentemente com o valor crescente da outra, então elas têm uma forte correlação positiva (valor próximo de +1).
+
+Da mesma forma, se um diminui consistentemente quando o outro aumenta, eles têm uma forte correlação negativa (valor próximo de -1).
+
+Um valor mais próximo de 0 sugere uma relação fraca entre as variáveis.
+
+Uma baixa correlação (-0,2 <x <0,2) provavelmente sugere que grande parte da variação da variável resposta (Y) é inexplicada pelo preditor (X). Nesse caso, você provavelmente deve procurar por melhores variáveis explicativas.
+
+Se você observar o carsconjunto de dados no console R, para cada instância em que a velocidade aumenta, a distância também aumenta junto com ela.
+
+Isso significa que existe uma forte relação positiva entre eles. Então, a correlação entre eles será mais próxima de 1.
+
+No entanto, a correlação não implica causalidade.
+
+Em outras palavras, se duas variáveis têm alta correlação, isso não significa que uma variável "causa" o valor da outra variável a aumentar.
+
+Correlação é apenas uma ajuda para entender o relacionamento. Você só pode confiar na lógica e no raciocínio comercial para fazer esse julgamento.
+
+Então, como calcular a correlação em R?
+
+Simplesmente use a função com as duas variáveis numéricas como argumentos.cor()
+```{r}
+cor(cars$speed, cars$dist)  # calculate correlation between speed and distance 
+```
+
+### Construindo o Modelo de Regressão Linear.
+
+Agora que você viu o relacionamento linear pictoricamente no gráfico de dispersão e por meio de correlação, vamos tentar construir o modelo de regressão linear.
+
+A função usada para construir modelos lineares é .lm()
+
+A função lm () aceita dois argumentos principais:
+
+Fórmula
+Dados
+
+Os dados são tipicamente um objeto e a fórmula é um objeto de classe .data.frameformula
+
+Mas a convenção mais comum é escrever a fórmula diretamente conforme descrito abaixo.
+```{r}
+linearMod <- lm(dist ~ speed, data=cars)  # build linear regression model on full data
+print(linearMod)
+```
+
+Ao construir o modelo de regressão linear, estabelecemos a relação entre o preditor e a resposta na forma de uma fórmula matemática.
+
+Isso é Distance ( dist) como uma função para speed.
+
+Para a saída acima, você pode notar a parte 'Coefficients' tendo dois componentes: Intercept: -17.579, speed: 3.932.
+
+Estes também são chamados de coeficientes beta . Em outras palavras,
+
+$$ dist = Interceptar + (\beta ∗ velocidade) $$
+
+=> dist = −17,579 + 3,932 ∗ de velocidade
+
+### Diagnóstico de regressão linear
+
+Agora o modelo linear é construído e você tem uma fórmula que pode ser usada para prever o distvalor se um correspondente speedfor conhecido.
+
+Isso é suficiente para realmente usar esse modelo? NÃO!
+
+Porque, antes de usar um modelo de regressão para fazer previsões, você precisa garantir que seja estatisticamente significativo. Mas como você garante isso?
+
+Vamos começar imprimindo as estatísticas de resumo para linearMod.

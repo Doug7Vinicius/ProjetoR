@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.55.5" />
+
+
+<title>Introdução a Regressão Linear - Regressao Linear</title>
+<meta property="og:title" content="Introdução a Regressão Linear - Regressao Linear">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/Doug7Vinicius">GitHub</a></li>
+    
+    <li><a href="https://www.instagram.com/jossivanaaa/">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">2 min read</span>
+    
+
+    <h1 class="article-title">Introdução a Regressão Linear</h1>
+
+    
+    <span class="article-date">2019-05-10</span>
+    
+
+    <div class="article-content">
+      
+
+
+<div id="o-modelo-de-regressao-linear-simples" class="section level3">
+<h3>O Modelo de Regressão Linear Simples</h3>
+<p>A Regressão Linear é uma das técnicas de modelagem preditiva mais utilizadas. O objetivo da regressão linear é encontrar uma equação matemática para uma variável de resposta contínua <strong>Y</strong> como uma função de uma ou mais variáveis <strong>X</strong> que descreve a relação mais simples entre duas variáveis - uma linha reta. Para que você possa usar esse modelo de regressão para prever o Y quando apenas o X é conhecido.</p>
+<p>Seja <strong>Y</strong> uma variável aletória de interesse, muitas vezes denominada variável resposta, e seja X uma variável aleatória que denominaremos auxiliar ou regressora.</p>
+<p>Coletivamente <span class="math inline">\(\beta_{0}\)</span> e <span class="math inline">\(\beta_{1}\)</span> são denotados os coeficientes da reta, ϵ, a variável erro, <span class="math inline">\(\sigma^2\)</span>, a variância erro, e <strong><em>x</em></strong>, um valor específico da variável <strong>X</strong>, neste caso pode ser generalizada da seguinte forma o modelo de regressão linear simples(MRLS):</p>
+<p><span class="math display">\[
+Y = \beta_{0} + \beta_{1}x + \epsilon 
+\]</span>
+<span class="math display">\[\beta_{0}, \beta_{1}, x\]</span>
+<span class="math display">\[E[\epsilon] = 0\]</span>
+<span class="math display">\[Var[\epsilon] = \sigma^2\]</span>
+Supomos que o modelo de probabilidade do erro é o modelo normal. Neste caso, podemos sumarizar o MRLS(normal) da seguinte forma.
+<span class="math display">\[Y = \beta_{0} + \beta_{1}x + \epsilon\]</span>
+<span class="math display">\[\beta_{0}, \beta_{1}, x\]</span>
+<span class="math display">\[\epsilon \sim N(0;\sigma^2)\]</span>
+Então, a distribuição de probabilidade de <em>Y</em>, corresponde:
+<span class="math display">\[Y \sim N(\beta_{0} + \beta_{1} x ; \sigma^2).\]</span>
+<em>PROVA:</em>
+<span class="math display">\[E[Y|x] = E[\beta_{0} + \beta_{1} + \epsilon]
+\]</span></p>
+</div>
+<div id="ajuste-de-reta-por-quadrados-minimos" class="section level3">
+<h3>Ajuste de Reta por Quadrados Mínimos</h3>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+
